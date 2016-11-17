@@ -20,7 +20,14 @@ gulp.task('assets',function() {
     gulp.src('bower_components/jQuery/dist/jquery.min.js')
       .pipe( gulp.dest('./dist/js/jquery/'));
     gulp.src('bower_components/font-awesome/fonts/**')
+      .pipe( gulp.dest('./dist/fonts/')); 
+    gulp.src('bower_components/bootstrap-sass/assets/fonts/bootstrap/**')
       .pipe( gulp.dest('./dist/fonts/'));    
+    gulp.src('bower_components/bootstrap-sass/assets/images/**')
+      .pipe( gulp.dest('./dist/images/'));
+    gulp.src('bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js')
+      .pipe( gulp.dest('./dist/js/bootstrap/')); 
+    gulp.src('./dist').pipe(connect.reload());     
 });
 
 // Compiles sass
@@ -29,7 +36,10 @@ gulp.task('sass', function() {
         .src('./src/scss/**/*.scss')
         .pipe(sass({
             outputStyle: 'compressed',
-            includePaths: ['bower_components/font-awesome/scss']
+            includePaths: [
+              'bower_components/font-awesome/scss', 
+              'bower_components/bootstrap-sass/assets/stylesheets'
+            ]
         }).on('error', sass.logError))
         .pipe(gulp.dest('./dist/css'))
         .pipe(connect.reload());
